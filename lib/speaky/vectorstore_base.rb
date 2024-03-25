@@ -25,7 +25,7 @@ module Speaky
     end
 
     # Query the vectorstore with a question.
-    # Returns a string.
+    # Returns an array of strings.
     def query(question)
       raise NotImplementedError
     end

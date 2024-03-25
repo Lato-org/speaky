@@ -34,6 +34,12 @@ module Speaky
       true
     end
 
+    def query(question)
+      # TODO: implement query
+
+      []
+    end
+
     private
 
     # This method is used to convert a string ID to a unique integer ID

@@ -67,7 +67,7 @@ module Speaky
 
       points_search = @client.points.search(
         collection_name: @config[:collection_name],
-        limit: 1,
+        limit: 5,
         vector: embeddings,
         with_payload: true,
         with_vector: false
@@ -78,7 +78,7 @@ module Speaky
         raise 'Failed to search vectors'
       end
 
-      points_search.dig('result').first.dig('payload', 'content')
+      points_search.dig('result').map { |r| r.dig('payload', 'content') }
     end
 
     def reset

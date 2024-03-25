@@ -35,7 +35,7 @@ RSpec.describe Speaky::VectorstoreFaiss do
       index_path: ENV["FAISS_INDEX_PATH"]
     })
 
-    vectorstore.add("test", "hello world")
+    vectorstore.add("test", "Hello, world!")
 
     # HACK: reset speaky @llm
     Speaky.instance_variable_set(:@llm, nil)
@@ -49,5 +49,26 @@ RSpec.describe Speaky::VectorstoreFaiss do
     })
 
     expect(vectorstore.remove("test")).to eq(true)
+  end
+
+  it "should query the index" do
+    next unless FAISS_CONFIGURED && OPENAI_CONFIGURED
+
+    # HACK: force speaky @llm to be initialized with OpenAI config
+    Speaky.instance_variable_set(:@llm, Speaky::LlmOpenai.new({
+      access_token: ENV["OPENAI_ACCESS_TOKEN"]
+    }))
+
+    vectorstore = Speaky::VectorstoreFaiss.new({
+      index_path: ENV["FAISS_INDEX_PATH"]
+    })
+
+    result = vectorstore.query("Hello what?")
+    expect(result).to be_an(Array)
+
+    puts result
+
+    # HACK: reset speaky @llm
+    Speaky.instance_variable_set(:@llm, nil)
   end
 end

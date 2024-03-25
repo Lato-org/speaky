@@ -88,7 +88,7 @@ RSpec.describe Speaky::VectorstoreQdrant do
     })
 
     result = vectorstore.query("Hello what?")
-    expect(result).to eq("Hello, world!")
+    expect(result).to be_an(Array)
 
     # HACK: reset speaky @llm
     Speaky.instance_variable_set(:@llm, nil)

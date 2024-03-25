@@ -87,7 +87,7 @@ module Speaky
       template ||= default_template
 
       # load context
-      context = vectorstore.query(question)
+      context = vectorstore.query(question).join("\n")
 
       # generate prompt
       prompt = template.gsub("{{context}}", context).gsub("{{question}}", question)
