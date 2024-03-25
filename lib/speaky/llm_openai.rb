@@ -19,6 +19,13 @@ module Speaky
         model: 'text-embedding-3-small',
         dimensions: 1536
       }
+
+      # setup chat params
+      # NOTE: This is a hardcoded value for now but can be made configurable in the future by passing it in the config
+      @chat_params = {
+        model: "gpt-3.5-turbo",
+        max_tokens: 1000
+      }
     end
 
     def embed(text)
@@ -28,6 +35,22 @@ module Speaky
 
       response = @client.embeddings(parameters: params)
       response["data"].find { |d| d["object"] == "embedding" }["embedding"]
+    end
+
+    def chat(prompt)
+      params = @chat_params.merge({
+        messages: [
+          {
+            role: "user",
+            content: prompt
+          }
+        ]
+      })
+
+      response = @client.chat(parameters: params)
+      puts response
+
+      response["choices"].first.dig("message", "content")
     end
   end
 end

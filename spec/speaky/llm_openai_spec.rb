@@ -31,4 +31,16 @@ RSpec.describe Speaky::LlmOpenai do
     embeddings = llm.embed("Hello, world!")
     expect(embeddings).to be_a(Array)
   end
+
+  it "should chat" do
+    next unless OPENAI_CONFIGURED
+
+    llm = Speaky::LlmOpenai.new({
+      access_token: ENV["OPENAI_ACCESS_TOKEN"]
+    })
+
+    response = llm.chat("Write me: Hello, world!")
+    expect(response).to be_a(String)
+    expect(response).to include("Hello, world!")
+  end
 end

@@ -20,4 +20,12 @@ RSpec.describe Speaky::LlmBase do
       llm.embed("text")
     }.to raise_error(NotImplementedError)
   end
+
+  it "should raise NotImplementedError for chat" do
+    llm = Speaky::LlmBase.new({})
+
+    expect {
+      llm.chat("prompt")
+    }.to raise_error(NotImplementedError)
+  end
 end

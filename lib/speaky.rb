@@ -65,5 +65,37 @@ module Speaky
         raise "Invalid llm type"
       end
     end
+
+    # This is a method that takes a question as an argument and returns
+    # the answer to the question from the LLM.
+    #
+    # Example of usage:
+    # Speaky.ask("What is the capital of France?")
+    def ask(question, template: nil, **other_params)
+      # load template
+      default_template = <<~TEMPLATE
+        You are an AI assistant. You are asked a question and you provide an answer.
+        Use the provided context to generate the answer to the question.
+
+        Context:
+        {{context}}
+
+        Question:
+        {{question}}
+      TEMPLATE
+      template ||= default_template
+
+      # load context
+      context = vectorstore.query(question)
+
+      # generate prompt
+      prompt = template.gsub("{{context}}", context).gsub("{{question}}", question)
+      other_params.each do |key, value|
+        prompt.gsub!("{{#{key}}}", value)
+      end
+
+      # ask the question
+      llm.ask(prompt)
+    end
   end
 end

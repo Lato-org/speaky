@@ -72,6 +72,19 @@ class MyModel < ApplicationRecord
 end
 ```
 
+To chat with the LLM, use the `Speaky.chat` method:
+
+```ruby
+# Using default prompt template
+Speaky.ask('What is the capital of France?')
+
+# Using custom prompt template
+Speaky.ask(
+  'What is the capital of France?',
+  template: 'You are a chatbot. Please answer the following question: {{question}} using this context: {{context}}.'
+)
+```
+
 ## Development
 
 1. Clone the repo
@@ -81,3 +94,9 @@ end
 3. Create your local `.env` file with `cp .env.example .env`
 
 4. Run the tests with `bundle exec rspec`
+
+### Publish a new version
+
+1. Update the version in `lib/speaky/version.rb`
+
+2. Run `ruby bin/publish`

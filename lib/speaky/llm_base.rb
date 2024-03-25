@@ -13,5 +13,9 @@ module Speaky
     def embed(text)
       raise NotImplementedError
     end
+
+    def chat(prompt)
+      raise NotImplementedError
+    end
   end
 end
