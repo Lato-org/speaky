@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'rails'
 require 'qdrant'
 
 module Speaky
@@ -29,7 +30,7 @@ module Speaky
         collection_name: @config[:collection_name],
         points: [
           {
-            id: id,
+            id: string_id_to_unique_int_id(id),
             vector: embeddings,
             payload: {
               content: data
@@ -50,7 +51,7 @@ module Speaky
     def remove(id)
       points_delete = @client.points.delete(
         collection_name: @config[:collection_name],
-        points: [id],
+        points: [string_id_to_unique_int_id(id)],
       )
 
       if !points_delete || points_delete.dig('status') != 'ok'
@@ -116,6 +117,12 @@ module Speaky
       end
 
       true
+    end
+
+    # This method is used to convert a string ID to a unique integer ID
+    # that can be used by the Qdrant API.
+    def string_id_to_unique_int_id(string_id)
+      string_id.to_s.hash.abs
     end
   end
 end

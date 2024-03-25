@@ -1,11 +1,15 @@
 # frozen_string_literal: true
 
 require 'dotenv'
+require "rails"
 require "active_record"
 require "speaky"
 
 # load .env file
 Dotenv.load
+
+# setup rails logger
+Rails.logger = Logger.new(STDOUT)
 
 # setup database connection
 ActiveRecord::Base.establish_connection(adapter: "sqlite3", database: ":memory:")

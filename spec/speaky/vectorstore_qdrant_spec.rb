@@ -60,7 +60,7 @@ RSpec.describe Speaky::VectorstoreQdrant do
       collection_name: ENV["QDRANT_COLLECTION_NAME"]
     })
 
-    result = vectorstore.add(1, "Hello, world!")
+    result = vectorstore.add("CUSTOM_1", "Hello, world!")
     expect(result).to eq(true)
 
     # HACK: reset speaky @llm
@@ -97,7 +97,7 @@ RSpec.describe Speaky::VectorstoreQdrant do
       collection_name: ENV["QDRANT_COLLECTION_NAME"]
     })
 
-    result = vectorstore.remove(1)
+    result = vectorstore.remove('CUSTOM_1')
     expect(result).to eq(true)
   end
 
