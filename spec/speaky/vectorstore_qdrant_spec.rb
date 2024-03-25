@@ -20,6 +20,8 @@ RSpec.describe Speaky::VectorstoreQdrant do
   end
 
   it "should raise an error if the url is not set" do
+    next unless QDRANT_CONFIGURED
+
     expect {
       Speaky::VectorstoreQdrant.new({
         api_key: ENV["QDRANT_API_KEY"],
@@ -29,6 +31,8 @@ RSpec.describe Speaky::VectorstoreQdrant do
   end
 
   it "should raise an error if the api_key is not set" do
+    next unless QDRANT_CONFIGURED
+
     expect {
       Speaky::VectorstoreQdrant.new({
         url: ENV["QDRANT_URL"],
@@ -38,6 +42,8 @@ RSpec.describe Speaky::VectorstoreQdrant do
   end
 
   it "should raise an error if the collection_name is not set" do
+    next unless QDRANT_CONFIGURED
+
     expect {
       Speaky::VectorstoreQdrant.new({
         url: ENV["QDRANT_URL"],

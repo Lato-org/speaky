@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
+require 'faiss'
+
 module Speaky
   class VectorstoreFaiss < VectorstoreBase
     def initialize(config)
-      raise 'This class is not implemented yet.' # TEMP
-
       @config = config
 
       # check if the index path is set
@@ -15,11 +15,18 @@ module Speaky
         @index = Faiss::Index.load(@config[:index_path])
       else
         # create a new index
-        @index = Faiss::IndexFlatL2.new(768)
+        @index = Faiss::IndexFlatL2.new(1536)
         @index.save(@config[:index_path])
       end
     end
 
-    # TODO: Implement the other methods
+    def add(id, data)
+      embeddings = Speaky.llm.embed(data)
+
+      result = @index.add([embeddings])
+      puts "@" * 100
+      puts result
+      puts "@" * 100
+    end
   end
 end
