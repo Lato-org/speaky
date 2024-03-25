@@ -100,3 +100,6 @@ Speaky.ask(
 1. Update the version in `lib/speaky/version.rb`
 
 2. Run `ruby bin/publish`
+
+## License
+The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
