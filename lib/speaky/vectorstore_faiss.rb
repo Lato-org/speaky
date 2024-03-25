@@ -1,6 +1,8 @@
 module Speaky
   class VectorstoreFaiss < VectorstoreBase
     def initialize(config)
+      raise 'This class is not implemented yet.' # TEMP
+
       @config = config
 
       # check if the index path is set
@@ -11,8 +13,11 @@ module Speaky
         @index = Faiss::Index.load(@config[:index_path])
       else
         # create a new index
-        # TODO
+        @index = Faiss::IndexFlatL2.new(768)
+        @index.save(@config[:index_path])
       end
     end
+
+    # TODO: Implement the other methods
   end
 end

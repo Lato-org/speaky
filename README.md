@@ -36,13 +36,15 @@ Speaky.configure do |config|
   }
 
   # Set the vector store type to use for storing model instances.
-  # - 'faiss' -> require 'faiss' gem
-  config.vector_store_type = 'faiss'
+  # - 'qvrant' -> require 'qdrant-ruby' gem
+  config.vector_store_type = 'qvrant'
 
   # Set the vector store configuration options.
-  # - for 'faiss' vector stores, :index_path is required
+  # - for 'qdrant' vector stores, :url, :api_key, :collection_name are required
   config.vector_store_config = {
-    index_path: 'path/to/index',
+    url: 'YOUR_URL',
+    api_key: 'YOUR_API_KEY',
+    collection_name: 'YOUR_COLLECTION_NAME',
   }
 end
 ```

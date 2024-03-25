@@ -11,3 +11,4 @@ gem "rspec"
 
 gem "sqlite3"
 gem "faiss"
+gem "qdrant-ruby"

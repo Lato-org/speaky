@@ -12,14 +12,14 @@ RSpec.describe Speaky do
       config.llm_type = 'openai'
       config.llm_config = { access_token: '1234' }
 
-      config.vectorstore_type = 'faiss'
-      config.vectorstore_config = { index_path: 'path/to/index' }
+      config.vectorstore_type = 'qvrant'
+      config.vectorstore_config = { url: 'YOUR_URL', api_key: 'YOUR_API_KEY', collection_name: 'YOUR_COLLECTION_NAME' }
     end
 
     expect(Speaky.config.llm_type).to eq('openai')
     expect(Speaky.config.llm_config).to eq({ access_token: '1234' })
-    expect(Speaky.config.vectorstore_type).to eq('faiss')
-    expect(Speaky.config.vectorstore_config).to eq({ index_path: 'path/to/index' })
+    expect(Speaky.config.vectorstore_type).to eq('qvrant')
+    expect(Speaky.config.vectorstore_config).to eq({ url: 'YOUR_URL', api_key: 'YOUR_API_KEY', collection_name: 'YOUR_COLLECTION_NAME' })
   end
 
   it "should have a model concern" do
