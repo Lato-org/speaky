@@ -22,9 +22,9 @@ RSpec.describe Speaky do
     expect(Speaky.config.vectorstore_config).to eq({ url: 'YOUR_URL', api_key: 'YOUR_API_KEY', collection_name: 'YOUR_COLLECTION_NAME' })
   end
 
-  it "should have a model concern" do
+  it "should have a concern" do
     class TestModel < ActiveRecord::Base
-      include Speaky::Model
+      include Speaky::Concern
     end
 
     model = TestModel.new

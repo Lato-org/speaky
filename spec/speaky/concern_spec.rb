@@ -2,10 +2,10 @@
 
 require "spec_helper"
 
-RSpec.describe Speaky::Model do
-  it "should have a model concern" do
+RSpec.describe Speaky::Concern do
+  it "should have a concern" do
     class TestModel < ActiveRecord::Base
-      include Speaky::Model
+      include Speaky::Concern
     end
 
     model = TestModel.new

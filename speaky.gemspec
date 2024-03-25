@@ -12,4 +12,8 @@ Gem::Specification.new do |spec|
 
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = "https://github.com/GAMS-Software/speaky"
+
+  spec.files = Dir.chdir(File.expand_path(__dir__)) do
+    Dir["{lib}/**/*", "MIT-LICENSE", "README.md"]
+  end
 end

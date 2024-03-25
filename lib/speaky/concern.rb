@@ -4,18 +4,8 @@ require 'active_support'
 
 module Speaky
   # This is a module that should be used as a Rails concern.
-  module Model
+  module Concern
     extend ActiveSupport::Concern
-
-    included do
-      after_create :create_for_speaky, if: -> { self.class.instance_variable_get(:@sync_for_speaky) }
-      after_update :update_for_speaky, if: -> { self.class.instance_variable_get(:@sync_for_speaky) }
-      after_destroy :destroy_for_speaky, if: -> { self.class.instance_variable_get(:@sync_for_speaky) }
-    end
-
-    def self.sync_for_speaky
-      @sync_for_speaky = true
-    end
 
     def as_speaky
       self.to_json

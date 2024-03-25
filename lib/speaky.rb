@@ -2,7 +2,7 @@
 
 require "speaky/version"
 require "speaky/config"
-require "speaky/model"
+require "speaky/concern"
 
 require "speaky/llm_base"
 require "speaky/llm_openai"

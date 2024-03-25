@@ -48,7 +48,6 @@ module Speaky
       })
 
       response = @client.chat(parameters: params)
-      puts response
 
       response["choices"].first.dig("message", "content")
     end

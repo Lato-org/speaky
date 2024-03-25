@@ -37,11 +37,11 @@ Speaky.configure do |config|
 
   # Set the vector store type to use for storing model instances.
   # - 'qdrant' -> require 'qdrant-ruby' gem
-  config.vector_store_type = 'qdrant'
+  config.vectorstore_type = 'qdrant'
 
   # Set the vector store configuration options.
   # - for 'qdrant' vector stores, :url, :api_key, :collection_name are required
-  config.vector_store_config = {
+  config.vectorstore_config = {
     url: 'YOUR_URL',
     api_key: 'YOUR_API_KEY',
     collection_name: 'YOUR_COLLECTION_NAME',
@@ -51,11 +51,11 @@ end
 
 ## Usage
 
-To use the gem, include the `Speaky::Model` module in your ActiveRecord models that should be stored in the vector store:
+To use the gem, include the `Speaky::Concern` module in your ActiveRecord models that should be stored in the vector store:
 
 ```ruby
 class MyModel < ApplicationRecord
-  include Speaky::Model
+  include Speaky::Concern
 
   def as_speaky
     # This method should return a string representation of the model instance data that should be stored in the vector store. The default implementation is to call `to_json` on the model instance data.
@@ -66,9 +66,6 @@ class MyModel < ApplicationRecord
   after_update :update_for_speaky
   after_save :save_for_speaky
   after_destroy :destroy_for_speaky
-
-  # Or auto-sync the model instance data in the vector store.
-  sync_for_speaky
 end
 ```
 
