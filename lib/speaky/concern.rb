@@ -13,7 +13,7 @@ module Speaky
 
     def save_for_speaky
       begin
-        Speaky.vectorstore.add(self.id, self.as_speaky)
+        Speaky.vectorstore.add("#{self.class.name}_#{self.id}", self.as_speaky)
       rescue StandardError => e
         Rails.logger.error(e)
         errors.add(:base, 'Failed to create for speaky')
@@ -23,7 +23,7 @@ module Speaky
 
     def destroy_for_speaky
       begin
-        Speaky.vectorstore.remove(self.id)
+        Speaky.vectorstore.remove("#{self.class.name}_#{self.id}")
       rescue StandardError => e
         Rails.logger.error(e)
         errors.add(:base, 'Failed to destroy for speaky')
