@@ -40,6 +40,7 @@ module Speaky
       )
 
       if !points_upsert || points_upsert.dig('status') != 'ok'
+        Rails.logger.error(points_upsert)
         raise 'Failed to add vector'
       end
 
@@ -53,6 +54,7 @@ module Speaky
       )
 
       if !points_delete || points_delete.dig('status') != 'ok'
+        Rails.logger.error(points_delete)
         raise 'Failed to remove vector'
       end
 
@@ -71,6 +73,7 @@ module Speaky
       )
 
       if !points_search || points_search.dig('status') != 'ok'
+        Rails.logger.error(points_search)
         raise 'Failed to search vectors'
       end
 
@@ -80,6 +83,7 @@ module Speaky
     def reset
       collections_delete = @client.collections.delete(collection_name: @config[:collection_name])
       if !collections_delete || collections_delete.dig('status') != 'ok'
+        Rails.logger.error(collections_delete)
         raise 'Failed to delete collection'
       end
 
@@ -99,6 +103,7 @@ module Speaky
           }
         )
         if !collections_create || collections_create.dig('status') != 'ok'
+          Rails.logger.error(collections_create)
           raise 'Failed to create collection'
         end
       end
@@ -106,6 +111,7 @@ module Speaky
       # create index for field "id" in collection
       collections_create_index = @client.collections.create_index(collection_name: @config[:collection_name], field_name: 'id', field_schema: 'keyword')
       if !collections_create_index || collections_create_index.dig('status') != 'ok'
+        Rails.logger.error(collections_create_index)
         raise 'Failed to create index for field "id" on collection'
       end
 
