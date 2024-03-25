@@ -11,22 +11,12 @@ module Speaky
       self.to_json
     end
 
-    def create_for_speaky
+    def save_for_speaky
       begin
         Speaky.vectorstore.add(self.id, self.as_speaky)
       rescue StandardError => e
         Rails.logger.error(e)
         errors.add(:base, 'Failed to create for speaky')
-        raise ActiveRecord::Rollback
-      end
-    end
-
-    def update_for_speaky
-      begin
-        Speaky.vectorstore.update(self.id, self.as_speaky)
-      rescue StandardError => e
-        Rails.logger.error(e)
-        errors.add(:base, 'Failed to update for speaky')
         raise ActiveRecord::Rollback
       end
     end
@@ -38,16 +28,6 @@ module Speaky
         Rails.logger.error(e)
         errors.add(:base, 'Failed to destroy for speaky')
         raise ActiveRecord::Rollback
-      end
-    end
-
-    def save_for_speaky
-      ActiveRecord::Base.transaction do
-        if self.new_record?
-          create_for_speaky
-        else
-          update_for_speaky
-        end
       end
     end
   end

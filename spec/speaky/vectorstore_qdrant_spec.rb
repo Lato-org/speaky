@@ -67,27 +67,6 @@ RSpec.describe Speaky::VectorstoreQdrant do
     Speaky.instance_variable_set(:@llm, nil)
   end
 
-  it "should update a vector" do
-    next unless QDRANT_CONFIGURED && OPENAI_CONFIGURED
-
-    # HACK: force speaky @llm to be initialized with OpenAI config
-    Speaky.instance_variable_set(:@llm, Speaky::LlmOpenai.new({
-      access_token: ENV["OPENAI_ACCESS_TOKEN"]
-    }))
-
-    vectorstore = Speaky::VectorstoreQdrant.new({
-      url: ENV["QDRANT_URL"],
-      api_key: ENV["QDRANT_API_KEY"],
-      collection_name: ENV["QDRANT_COLLECTION_NAME"]
-    })
-
-    result = vectorstore.update(1, "Hello, world!")
-    expect(result).to eq(true)
-
-    # HACK: reset speaky @llm
-    Speaky.instance_variable_set(:@llm, nil)
-  end
-
   it "should query vectors" do
     next unless QDRANT_CONFIGURED && OPENAI_CONFIGURED
 

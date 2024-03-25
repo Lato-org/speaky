@@ -17,13 +17,6 @@ module Speaky
       raise NotImplementedError
     end
 
-    # Update a vector in the vectorstore.
-    # NOTE: If the vector does not exist, it will be added.
-    # Returns a boolean.
-    def update(id, data)
-      raise NotImplementedError
-    end
-
     # Remove a vector from the vectorstore.
     # NOTE: If the vector does not exist, it will be ignored.
     # Returns a boolean.

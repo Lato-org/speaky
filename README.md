@@ -62,8 +62,6 @@ class MyModel < ApplicationRecord
   end
 
   # Add any callbacks that should update the model instance data in the vector store.
-  after_create :create_for_speaky
-  after_update :update_for_speaky
   after_save :save_for_speaky
   after_destroy :destroy_for_speaky
 end

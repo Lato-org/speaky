@@ -111,11 +111,11 @@ module Speaky
       Rails.application.eager_load!
       rails_models = ActiveRecord::Base.descendants
       rails_models.each do |rails_model|
-        next unless rails_model.instance_methods.include?(:create_for_speaky)
+        next unless rails_model.instance_methods.include?(:save_for_speaky)
 
         rails_model.find_in_batches do |batch|
           batch.each do |record|
-            record.create_for_speaky
+            record.save_for_speaky
           end
         end
       end

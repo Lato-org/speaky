@@ -21,14 +21,6 @@ RSpec.describe Speaky::VectorstoreBase do
     }.to raise_error(NotImplementedError)
   end
 
-  it "should raise NotImplementedError for update" do
-    vectorstore = Speaky::VectorstoreBase.new({})
-
-    expect {
-      vectorstore.update(1, "text")
-    }.to raise_error(NotImplementedError)
-  end
-
   it "should raise NotImplementedError for remove" do
     vectorstore = Speaky::VectorstoreBase.new({})
 

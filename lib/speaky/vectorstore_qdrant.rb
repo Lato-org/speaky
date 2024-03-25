@@ -46,10 +46,6 @@ module Speaky
       true
     end
 
-    def update(id, data)
-      add(id, data)
-    end
-
     def remove(id)
       points_delete = @client.points.delete(
         collection_name: @config[:collection_name],
