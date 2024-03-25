@@ -95,7 +95,7 @@ module Speaky
       end
 
       # ask the question
-      llm.ask(prompt)
+      llm.chat(prompt)
     end
   end
 end
