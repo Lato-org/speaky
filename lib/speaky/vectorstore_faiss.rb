@@ -15,7 +15,8 @@ module Speaky
         @index = Faiss::Index.load(@config[:index_path])
       else
         # create a new index
-        @index = Faiss::IndexFlatL2.new(1536)
+        index = Faiss::IndexFlatL2.new(1536)
+        @index = Faiss::IndexIDMap.new(index)
         @index.save(@config[:index_path])
       end
     end
@@ -23,10 +24,22 @@ module Speaky
     def add(id, data)
       embeddings = Speaky.llm.embed(data)
 
-      result = @index.add([embeddings])
-      puts "@" * 100
-      puts result
-      puts "@" * 100
+      @index.add_with_ids([embeddings], [string_id_to_unique_int_id(id)])
+
+      true
+    end
+
+    def remove(id)
+      # remove is not supported by Faiss
+      true
+    end
+
+    private
+
+    # This method is used to convert a string ID to a unique integer ID
+    # that can be used by the Qdrant API.
+    def string_id_to_unique_int_id(string_id)
+      string_id.to_s.hash.abs
     end
   end
 end
