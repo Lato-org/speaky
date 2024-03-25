@@ -36,8 +36,8 @@ Speaky.configure do |config|
   }
 
   # Set the vector store type to use for storing model instances.
-  # - 'qvrant' -> require 'qdrant-ruby' gem
-  config.vector_store_type = 'qvrant'
+  # - 'qdrant' -> require 'qdrant-ruby' gem
+  config.vector_store_type = 'qdrant'
 
   # Set the vector store configuration options.
   # - for 'qdrant' vector stores, :url, :api_key, :collection_name are required
@@ -78,4 +78,6 @@ end
 
 2. Install dependencies with `bundle install`
 
-3. Run the tests with `bundle exec rspec`
+3. Create your local `.env` file with `cp .env.example .env`
+
+4. Run the tests with `bundle exec rspec`

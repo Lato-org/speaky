@@ -8,7 +8,7 @@ require "speaky/llm_base"
 
 require "speaky/vectorstore_base"
 require "speaky/vectorstore_faiss"
-require "speaky/vectorstore_qvrant"
+require "speaky/vectorstore_qdrant"
 
 module Speaky
   class << self
@@ -43,8 +43,8 @@ module Speaky
       case config.vectorstore_type
       when "faiss"
         @vectorstore = VectorstoreFaiss.new(config.vectorstore_config)
-      when "qvrant"
-        @vectorstore = VectorstoreQvrant.new(config.vectorstore_config)
+      when "qdrant"
+        @vectorstore = VectorstoreQdrant.new(config.vectorstore_config)
       else
         raise "Invalid vectorstore type"
       end

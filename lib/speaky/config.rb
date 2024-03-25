@@ -13,7 +13,7 @@ module Speaky
       @llm_type = 'openai'
       @llm_config = {}
 
-      @vectorstore_type = 'qvrant'
+      @vectorstore_type = 'qdrant'
       @vectorstore_config = {}
     end
   end

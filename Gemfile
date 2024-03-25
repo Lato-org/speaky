@@ -8,6 +8,7 @@ gemspec
 gem "rails"
 gem "rake"
 gem "rspec"
+gem "dotenv"
 
 gem "sqlite3"
 gem "faiss"

@@ -12,13 +12,13 @@ RSpec.describe Speaky do
       config.llm_type = 'openai'
       config.llm_config = { access_token: '1234' }
 
-      config.vectorstore_type = 'qvrant'
+      config.vectorstore_type = 'qdrant'
       config.vectorstore_config = { url: 'YOUR_URL', api_key: 'YOUR_API_KEY', collection_name: 'YOUR_COLLECTION_NAME' }
     end
 
     expect(Speaky.config.llm_type).to eq('openai')
     expect(Speaky.config.llm_config).to eq({ access_token: '1234' })
-    expect(Speaky.config.vectorstore_type).to eq('qvrant')
+    expect(Speaky.config.vectorstore_type).to eq('qdrant')
     expect(Speaky.config.vectorstore_config).to eq({ url: 'YOUR_URL', api_key: 'YOUR_API_KEY', collection_name: 'YOUR_COLLECTION_NAME' })
   end
 

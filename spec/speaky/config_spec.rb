@@ -9,7 +9,7 @@ RSpec.describe Speaky::Config do
     expect(config.llm_type).to eq("openai")
     expect(config.llm_config).to eq({})
 
-    expect(config.vectorstore_type).to eq("qvrant")
+    expect(config.vectorstore_type).to eq("qdrant")
     expect(config.vectorstore_config).to eq({})
   end
 
@@ -26,10 +26,10 @@ RSpec.describe Speaky::Config do
   it "should be able to set Vectorstore configuration" do
     config = Speaky::Config.new
 
-    config.vectorstore_type = "qvrant"
+    config.vectorstore_type = "qdrant"
     config.vectorstore_config = { api_key: "123" }
 
-    expect(config.vectorstore_type).to eq("qvrant")
+    expect(config.vectorstore_type).to eq("qdrant")
     expect(config.vectorstore_config).to eq({ api_key: "123" })
   end
 end
