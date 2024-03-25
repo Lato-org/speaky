@@ -4,6 +4,10 @@ module Speaky
       @config = config
     end
 
+    def config
+      @config
+    end
+
     # Add a vector to the vectorstore.
     # NOTE: If the vector already exists, it will be updated.
     def add(id, data)
