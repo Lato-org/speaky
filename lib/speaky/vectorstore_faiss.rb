@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Speaky
   class VectorstoreFaiss < VectorstoreBase
     def initialize(config)

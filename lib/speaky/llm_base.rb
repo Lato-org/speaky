@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Speaky
   class LlmBase
     def initialize(config)
@@ -6,6 +8,10 @@ module Speaky
 
     def config
       @config
+    end
+
+    def embed(text)
+      raise NotImplementedError
     end
   end
 end

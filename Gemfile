@@ -11,5 +11,6 @@ gem "rspec"
 gem "dotenv"
 
 gem "sqlite3"
+gem "ruby-openai"
 gem "faiss"
 gem "qdrant-ruby"

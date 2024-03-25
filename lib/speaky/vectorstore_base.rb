@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Speaky
   class VectorstoreBase
     def initialize(config)
@@ -26,7 +28,7 @@ module Speaky
       raise NotImplementedError
     end
 
-    def query(query)
+    def query(question)
       raise NotImplementedError
     end
   end

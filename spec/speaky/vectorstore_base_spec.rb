@@ -12,4 +12,36 @@ RSpec.describe Speaky::VectorstoreBase do
       config_key: "config_value"
     })
   end
+
+  it "should raise NotImplementedError for add" do
+    vectorstore = Speaky::VectorstoreBase.new({})
+
+    expect {
+      vectorstore.add(1, "text")
+    }.to raise_error(NotImplementedError)
+  end
+
+  it "should raise NotImplementedError for update" do
+    vectorstore = Speaky::VectorstoreBase.new({})
+
+    expect {
+      vectorstore.update(1, "text")
+    }.to raise_error(NotImplementedError)
+  end
+
+  it "should raise NotImplementedError for remove" do
+    vectorstore = Speaky::VectorstoreBase.new({})
+
+    expect {
+      vectorstore.remove(1)
+    }.to raise_error(NotImplementedError)
+  end
+
+  it "should raise NotImplementedError for query" do
+    vectorstore = Speaky::VectorstoreBase.new({})
+
+    expect {
+      vectorstore.query("query")
+    }.to raise_error(NotImplementedError)
+  end
 end

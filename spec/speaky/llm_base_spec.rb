@@ -12,4 +12,12 @@ RSpec.describe Speaky::LlmBase do
       config_key: "config_value"
     })
   end
+
+  it "should raise NotImplementedError for embed" do
+    llm = Speaky::LlmBase.new({})
+
+    expect {
+      llm.embed("text")
+    }.to raise_error(NotImplementedError)
+  end
 end

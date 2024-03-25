@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'qdrant'
 
 module Speaky
@@ -19,7 +21,13 @@ module Speaky
       # create collection if it doesn't exist
       collections_get = @client.collections.get(collection_name: @config[:collection_name])
       if !collections_get || collections_get.dig('status') != 'ok'
-        collections_create = @client.collections.create(collection_name: @config[:collection_name], vectors: {})
+        collections_create = @client.collections.create(
+          collection_name: @config[:collection_name],
+          vectors: {
+            distance: "Cosine",
+            size: 1536
+          }
+        )
         if !collections_create || collections_create.dig('status') != 'ok'
           raise 'Failed to create collection'
         end
@@ -33,15 +41,62 @@ module Speaky
     end
 
     def add(id, data)
+      embeddings = Speaky.llm.embed(data)
+
       points_upsert = @client.points.upsert(
         collection_name: @config[:collection_name],
-        batch: {
-
-        },
+        points: [
+          {
+            id: id,
+            vector: embeddings,
+            payload: {
+              content: data
+            }
+          }
+        ],
         wait: true
       )
 
-      puts points_upsert
+      if !points_upsert || points_upsert.dig('status') != 'ok'
+        raise 'Failed to add vector'
+      end
+
+      true
+    end
+
+    def update(id, data)
+      add(id, data)
+    end
+
+    def remove(id)
+      points_delete = @client.points.delete(
+        collection_name: @config[:collection_name],
+        points: [id],
+      )
+
+      if !points_delete || points_delete.dig('status') != 'ok'
+        raise 'Failed to remove vector'
+      end
+
+      true
+    end
+
+    def query(question)
+      embeddings = Speaky.llm.embed(question)
+
+      points_search = @client.points.search(
+        collection_name: @config[:collection_name],
+        limit: 1,
+        vector: embeddings,
+        with_payload: true,
+        with_vector: false
+      )
+
+      if !points_search || points_search.dig('status') != 'ok'
+        raise 'Failed to search vectors'
+      end
+
+      points_search.dig('result').first.dig('payload', 'content')
     end
   end
 end

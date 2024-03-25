@@ -18,4 +18,5 @@ ActiveRecord::Schema.define do
 end
 
 # setup consts to be used in tests
-QVRANT_CONFIGURED = !ENV["QDRANT_URL"].blank? && !ENV["QDRANT_API_KEY"].blank? && !ENV["QDRANT_COLLECTION_NAME"].blank?
+OPENAI_CONFIGURED = !ENV["OPENAI_ACCESS_TOKEN"].blank?
+QDRANT_CONFIGURED = !ENV["QDRANT_URL"].blank? && !ENV["QDRANT_API_KEY"].blank? && !ENV["QDRANT_COLLECTION_NAME"].blank?
