@@ -121,4 +121,17 @@ RSpec.describe Speaky::VectorstoreQdrant do
     result = vectorstore.remove(1)
     expect(result).to eq(true)
   end
+
+  it "should reset the vectorstore" do
+    next unless QDRANT_CONFIGURED
+
+    vectorstore = Speaky::VectorstoreQdrant.new({
+      url: ENV["QDRANT_URL"],
+      api_key: ENV["QDRANT_API_KEY"],
+      collection_name: ENV["QDRANT_COLLECTION_NAME"]
+    })
+
+    result = vectorstore.reset
+    expect(result).to eq(true)
+  end
 end

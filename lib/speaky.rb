@@ -71,6 +71,7 @@ module Speaky
     #
     # Example of usage:
     # Speaky.ask("What is the capital of France?")
+    # Speaky.ask("What is the capital of France?", template: "You are an AI assistant. You are asked a question and you provide an answer. Use the provided context to generate the answer to the question. Context: {{context}} Question: {{question}}")
     def ask(question, template: nil, **other_params)
       # load template
       default_template = <<~TEMPLATE
@@ -96,6 +97,30 @@ module Speaky
 
       # ask the question
       llm.chat(prompt)
+    end
+
+    # This is a method that re-embeds all Rails models into the vectorstore.
+    #
+    # Example of usage:
+    # Speaky.embed!
+    def embed!
+      # reset the vectorstore
+      vectorstore.reset
+
+      # re-embed all rails models that include the Concern module
+      Rails.application.eager_load!
+      rails_models = ActiveRecord::Base.descendants
+      rails_models.each do |rails_model|
+        next unless rails_model.instance_methods.include?(:create_for_speaky)
+
+        rails_model.find_in_batches do |batch|
+          batch.each do |record|
+            record.create_for_speaky
+          end
+        end
+      end
+
+      true
     end
   end
 end

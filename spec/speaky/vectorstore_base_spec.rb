@@ -44,4 +44,12 @@ RSpec.describe Speaky::VectorstoreBase do
       vectorstore.query("query")
     }.to raise_error(NotImplementedError)
   end
+
+  it "should raise NotImplementedError for reset" do
+    vectorstore = Speaky::VectorstoreBase.new({})
+
+    expect {
+      vectorstore.reset
+    }.to raise_error(NotImplementedError)
+  end
 end

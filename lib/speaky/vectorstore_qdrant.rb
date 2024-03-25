@@ -18,26 +18,8 @@ module Speaky
         api_key: @config[:api_key]
       )
 
-      # create collection if it doesn't exist
-      collections_get = @client.collections.get(collection_name: @config[:collection_name])
-      if !collections_get || collections_get.dig('status') != 'ok'
-        collections_create = @client.collections.create(
-          collection_name: @config[:collection_name],
-          vectors: {
-            distance: "Cosine",
-            size: 1536
-          }
-        )
-        if !collections_create || collections_create.dig('status') != 'ok'
-          raise 'Failed to create collection'
-        end
-      end
-
-      # create index for field "id" in collection
-      collections_create_index = @client.collections.create_index(collection_name: @config[:collection_name], field_name: 'id', field_schema: 'keyword')
-      if !collections_create_index || collections_create_index.dig('status') != 'ok'
-        raise 'Failed to create index for field "id" on collection'
-      end
+      # create collection
+      create_collection
     end
 
     def add(id, data)
@@ -97,6 +79,41 @@ module Speaky
       end
 
       points_search.dig('result').first.dig('payload', 'content')
+    end
+
+    def reset
+      collections_delete = @client.collections.delete(collection_name: @config[:collection_name])
+      if !collections_delete || collections_delete.dig('status') != 'ok'
+        raise 'Failed to delete collection'
+      end
+
+      create_collection
+    end
+
+    private
+
+    def create_collection
+      collections_get = @client.collections.get(collection_name: @config[:collection_name])
+      if !collections_get || collections_get.dig('status') != 'ok'
+        collections_create = @client.collections.create(
+          collection_name: @config[:collection_name],
+          vectors: {
+            distance: "Cosine",
+            size: 1536
+          }
+        )
+        if !collections_create || collections_create.dig('status') != 'ok'
+          raise 'Failed to create collection'
+        end
+      end
+
+      # create index for field "id" in collection
+      collections_create_index = @client.collections.create_index(collection_name: @config[:collection_name], field_name: 'id', field_schema: 'keyword')
+      if !collections_create_index || collections_create_index.dig('status') != 'ok'
+        raise 'Failed to create index for field "id" on collection'
+      end
+
+      true
     end
   end
 end

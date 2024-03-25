@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    speaky (0.1.0)
+    speaky (0.1.2)
 
 GEM
   remote: https://rubygems.org/
