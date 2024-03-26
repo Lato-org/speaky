@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require "openai"
-
 module Speaky
   class LlmOpenai < LlmBase
     def initialize(config)
+      require "openai"
+
       @config = config
 
       # check if the access token is set

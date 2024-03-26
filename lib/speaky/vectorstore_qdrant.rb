@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
 require 'rails'
-require 'qdrant'
 
 module Speaky
   class VectorstoreQdrant < VectorstoreBase
     def initialize(config)
+      require 'qdrant'
+
       @config = config
 
       # check if required fields are set
