@@ -35,15 +35,15 @@ module Speaky
     end
 
     def query(question)
-      embeddings = Speaky.llm.embed(question)
-
-      distances, ids = @index.search([embeddings], 5)
-      puts "@" * 100
-      puts distances
-      puts ids.to_a
-      puts "@" * 100
+      # TODO
 
       []
+    end
+
+    def reset
+      # TODO
+
+      true
     end
 
     private

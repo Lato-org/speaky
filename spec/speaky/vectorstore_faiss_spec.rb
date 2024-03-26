@@ -71,4 +71,14 @@ RSpec.describe Speaky::VectorstoreFaiss do
     # HACK: reset speaky @llm
     Speaky.instance_variable_set(:@llm, nil)
   end
+
+  it "should reset the index" do
+    next unless FAISS_CONFIGURED
+
+    vectorstore = Speaky::VectorstoreFaiss.new({
+      index_path: ENV["FAISS_INDEX_PATH"]
+    })
+
+    expect(vectorstore.reset).to eq(true)
+  end
 end
