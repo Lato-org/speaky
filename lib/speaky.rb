@@ -11,6 +11,8 @@ require "speaky/vectorstore_base"
 require "speaky/vectorstore_qdrant"
 require "speaky/vectorstore_faiss"
 
+require 'rails'
+
 module Speaky
   class << self
     # This is a class method that returns a new instance of Config
@@ -96,6 +98,7 @@ module Speaky
       end
 
       # ask the question
+      Rails.logger.debug("Prompt:\n\n#{prompt}")
       llm.chat(prompt)
     end
 
