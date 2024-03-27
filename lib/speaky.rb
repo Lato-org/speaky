@@ -118,6 +118,7 @@ module Speaky
 
         rails_model.find_in_batches do |batch|
           batch.each do |record|
+            Rails.logger.debug("Embedding #{record.class.name} #{record.id}")
             record.save_for_speaky
           end
         end
