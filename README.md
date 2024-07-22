@@ -1,7 +1,5 @@
 # Speaky
 
-**UNDER DEVELOPMENT**
-
 Store activerecord models in vector stores and query them with LLMs!
 
 ## Installation
